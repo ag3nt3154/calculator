@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Google
+        </title>
+    </head>
+    <style>
+        .grid_container {
+            display: grid;
+        }
+
+        #outer_container {
+            text-align: center;
+            border: solid black 5px;
+            
+        }
+
+        #buttons {
+            
+            grid-template-columns: 80% 20%;
+            grid-template-rows: auto auto;
+            
+        }
+        
+        #operators {
+            grid-column: 1 /span 2;
+            grid-template-columns: auto auto auto auto;
+            height: 50px;
+        }
+
+        #numeric {
+            grid-template-columns: auto auto auto;
+            height: 200px;
+        }
+
+        #misc_fn {
+            grid-template-columns: auto;
+        }
+
+        #num0 {
+            grid-column: 1 / span 3;
+        }
+
+        #display {
+            height: 50px;
+            font-size: 18px;
+            text-align: center;
+            padding-top: 25px;
+        }
+    </style>
+    <body>
+        <div id="outer_container"> 
+            <div id="display">
+                
+            </div>
+            <div id="buttons" class="grid_container">
+                <div id="operators" class="grid_container">
+                    <button class="op">+</button>
+                    <button class="op">-</button>
+                    <button class="op">*</button>
+                    <button class="op">/</button>
+                </div>
+                
+                <div id="numeric" class="grid_container">
+                    <button class="num">9</button>
+                    <button class="num">8</button>
+                    <button class="num">7</button>
+                    <button class="num">6</button>
+                    <button class="num">5</button>
+                    <button class="num">4</button>
+                    <button class="num">3</button>
+                    <button class="num">2</button>
+                    <button class="num">1</button>
+                    <button id="num0" class="num">0</button>
+                </div>
+
+                <div id="misc_fn" class="grid_container">
+                    <button id="clear">Clear</button>
+                    <button id="enter">Enter</button>
+                </div>
+            </div>
+        </div>        
+    </body>
+
+    <script src="script.js">
+    </script>
+</html>
