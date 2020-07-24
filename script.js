@@ -1,5 +1,13 @@
 console.log("hello world");
 
+const calculator = {
+    curVal: 0,
+    newVal: 0,
+    opn: null,
+    display: null,
+
+}
+
 let curVal = 0;
 let curOp = null;
 let newVal = 0;
@@ -39,6 +47,8 @@ enterBtn.addEventListener("click", function (e) {
     disp.textContent = curVal;
     curOp = null;
 });
+
+
 
 
 function updateNewVal(curVal, digit) {
