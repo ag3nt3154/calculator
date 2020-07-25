@@ -1,93 +1,107 @@
 console.log("hello world");
 
 const calculator = {
-    curVal: 0,
-    newVal: 0,
+    curVal: null,
+    newVal: null,
     opn: null,
-    display: null,
+    curDisp: document.querySelector("#curVal"),
+    opnDisp: document.querySelector("#opn"),
+    newDisp: document.querySelector("#newVal"),
+    text: null,
+    display: function () {
+        this.curDisp.textContent = this.curVal;
+        this.opnDisp.textContent = this.opn;
+        this.newDisp.textContent = this.newVal;
+    },
+    clear: function () {
+        this.newVal = null;
+        this.opn = null;
+        this.curVal = null;
+        this.display();
+    },
+    evaluate: function () {
+        if (this.opn == "+") {
+            this.curVal += this.newVal;
+        }
+        else if (this.opn == "-") {
+            this.curVal -= this.newVal;
+        }
+        else if (this.opn == "*") {
+            this.curVal *= this.newVal;
+        }
+        else if (this.opn == "/") {
+            this.curVal /= this.newVal;
+        }
+        else if (this.opn == null) {
+            this.curVal = this.newVal;
+        }
 
+        this.text = toString(this.curVal);
+        this.newVal = null;
+        this.opn = null;
+    },
+    updateNewVal: function (text) {
+        if (this.newVal == null) {
+            this.newVal = parseFloat(text);
+        }
+        else {
+            this.newVal = parseFloat(this.newVal + text);
+        }
+    },
+    del: function () {
+        this.text = this.newVal.toString();
+        if (this.text.length == 1) {
+            this.newVal = null;
+        }
+        else {
+            this.newVal = parseFloat(this.text.slice(0, -1));
+        }
+        
+    }
 }
 
-let curVal = 0;
-let curOp = null;
-let newVal = 0;
+calculator.display();
+
+
 
 const num_keys = document.querySelectorAll(".num");
-const disp = document.querySelector("#display");
-
 num_keys.forEach((key) => {
     key.addEventListener("click", function (e) {
-        display(e.target.textContent);
-        newVal = updateNewVal(newVal, e.target.textContent)
+        calculator.updateNewVal(e.target.textContent);
+        calculator.display();
     });
 });
 
 const clearBtn = document.querySelector("#clear");
 clearBtn.addEventListener("click", function (e) {
-    clear();
-});
-
-const opKeys = document.querySelectorAll(".op");
-opKeys.forEach((key) => {
-    key.addEventListener("click", function (e) {
-        // display(e.target.textContent);
-        clear();
-        curVal = operate(curVal, curOp, newVal);
-        newVal = 0;
-        disp.textContent = curVal;
-        curOp = e.target.textContent;
-    });
+    calculator.clear();
 });
 
 const enterBtn = document.querySelector("#enter");
 enterBtn.addEventListener("click", function (e) {
-    clear();
-    curVal = operate(curVal, curOp, newVal);
-    newVal = 0;
-    disp.textContent = curVal;
-    curOp = null;
+    calculator.evaluate();
+    calculator.display();
 });
 
+const opKeys = document.querySelectorAll(".op");
+opKeys.forEach((key) => {
+    key.style.fontSize = "20px";
+    key.addEventListener("click", function (e) {
+        if (calculator.newVal != null) {
+            calculator.evaluate();
+        }
+        calculator.opn = e.target.textContent;
+        calculator.display();
+    });
+});
 
-
-
-function updateNewVal(curVal, digit) {
-    return parseFloat(curVal + digit)
-}
-
-function display(newValue) {
-    let prev_string = disp.textContent;
-    prev_string += newValue;
-    disp.textContent = prev_string;
-}
-
-function clear() {
-    disp.textContent = null;
-}
-
-function operate(curVal, opn, newVal) {
-    console.log(curVal, opn, newVal);
-    // curVal = parseFloat(curVal);
-    // newVal = parseFloat(newVal);
-
-    if (opn == null) {
-        curVal = newVal;
+const delKey = document.querySelector("#del");
+delKey.addEventListener("click", function(e) {
+    if (calculator.newVal != null) {
+        calculator.del();
     }
-    else if (opn == "+") {
-        curVal = curVal + newVal;
+    else if (calculator.opn != null) {
+        calculator.opn = null;
     }
-    else if (opn == "-") {
-        curVal = curVal - newVal;
-    }
-    else if (opn == "*") {
-        curVal = curVal * newVal;
-    }
-    else if (opn == "/") {
-        curVal = curVal / newVal;
-    }
-
-    // curVal = toString(curVal);
-
-    console.log(curVal);
-    return curVal;
-}
+    calculator.display();
+});

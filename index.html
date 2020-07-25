@@ -17,7 +17,6 @@
         }
 
         #buttons {
-            
             grid-template-columns: 80% 20%;
             grid-template-rows: auto auto;
             
@@ -47,12 +46,15 @@
             font-size: 18px;
             text-align: center;
             padding-top: 25px;
+            grid-template-columns: auto auto auto;
         }
     </style>
     <body>
         <div id="outer_container"> 
-            <div id="display">
-                
+            <div id="display" class="grid_container">
+                <div id="curVal"></div>
+                <div id="opn"></div>
+                <div id="newVal"></div>
             </div>
             <div id="buttons" class="grid_container">
                 <div id="operators" class="grid_container">
